@@ -52,6 +52,5 @@ jobs:
           password: ${{ secrets.PASSWORD }}
           port: 22
           script: |
-            ls -la
             whoami
-            pwd
+            ls -al
