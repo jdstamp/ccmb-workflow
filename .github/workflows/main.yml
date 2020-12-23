@@ -38,8 +38,8 @@ jobs:
       - name: executing remote ssh commands using password
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ oscar.HOST }}
-          username: ${{ oscar.USERNAME }}
-          password: ${{ oscar.PASSWORD }}
-          port: ${{ oscar.PORT }}
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          port: 22
           script: ls -la
