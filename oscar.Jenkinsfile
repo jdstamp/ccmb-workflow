@@ -18,7 +18,10 @@ node {
                 allowAnyHosts: true
         ]
         stage('Transfer a file to oscar') {
-            writeFile file: 'hello.txt', text: 'Hello oscar!'
+            writeFile (
+                    file: 'hello.txt',
+                    text: 'Hello oscar!'
+            )
             sshPut remote: remote, from: 'hello.txt', into: '.'
         }
         stage('Run a command on oscar') {
