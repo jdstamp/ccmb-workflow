@@ -25,19 +25,44 @@ node {
             sshPut remote: remote, from: 'hello.txt', into: '.'
         }
         stage('Run a command on oscar') {
-            sshCommand remote: remote, command: "ls -lrt"
-            sshCommand remote: remote, command: "for i in {1..5}; do echo -n \"Loop \$i \"; date > hello.txt; sleep 1; done"
+            sshCommand(
+                    remote: remote,
+                    command: "ls -lrt"
+            )
+            sshCommand(
+                    remote: remote,
+                    command: "for i in {1..5}; do echo -n \"Loop \$i \"; date > hello.txt; sleep 1; done"
+            )
         }
         stage('Run a shell script on oscar') {
-            sshScript remote: remote, script: "oscar-job.sh"
+            sshScript(
+                    remote: remote,
+                    script: "oscar-job.sh"
+            )
+        }
+        stage('SLURM scheduling on oscar') {
+            sshScript(
+                    remote: remote,
+                    script: "slurm.sh"
+            )
         }
         stage('Fetch a file from oscar') {
-            sshGet remote: remote, from: 'hello.txt', into: 'hello.txt', override: true
+            sshGet( remote: remote,
+                    from: 'hello.txt',
+                    into: 'hello.txt',
+                    override: true
+            )
             sh 'cat hello.txt'
         }
         stage('Remove a file from oscar') {
-            sshRemove remote: remote, path: "hello.txt"
-            sshCommand remote: remote, command: "ls -lrt"
+            sshRemove(
+                    remote: remote,
+                    path: "hello.txt"
+            )
+            sshCommand(
+                    remote: remote,
+                    command: "ls -lrt"
+            )
         }
     }
 }
